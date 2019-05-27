@@ -1,0 +1,27 @@
+{
+  "name": "car_project",
+  "version": "1.0.0",
+  "description": "This is my node project of car blog post...",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.6.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.5.11",
+    "nodemon": "^1.19.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivishalydv/car_project.git"
+  },
+  "author": "Vishal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ivishalydv/car_project/issues"
+  },
+  "homepage": "https://github.com/ivishalydv/car_project#readme"
+}
