@@ -1,8 +1,13 @@
-<h1>Car Blog Page</h1>
-<div>
-<%cars.forEach(function(cars){%>
-    <p><%=cars.name%></p>
-    <img src="<%=cars.image%>">
-    <p><%=cars.about%></p>
-<%});%>
+<% include ./partials/header %>
+<div class="ui container very padded text mine">
+    <h1>Car Blog Page</h1>
 </div>
+<div class="ui container raised very padded text segment">
+    <%cars.forEach(function(cars){%>
+        <p><%=cars.name%></p>
+        <img src="<%=cars.image%>">
+        <p><%=cars.about%></p>
+    <%});%>
+</div>
+
+<% include ./partials/footer %>

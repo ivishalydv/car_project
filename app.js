@@ -32,6 +32,20 @@ app.get("/cars",(req,res)=>{
     });
 });
 
+app.get("/cars/new",(req,res)=>{
+    res.render("new");
+})
+//create route
+app.post("/cars",(req,res)=>{
+    Car.create(req.body.car,(err,newBlog)=>{
+        if(err){
+            res.render("new");
+
+        }else{
+            res.redirect("/cars");
+        }
+    });
+});
 
 
 var port=process.env.PORT || 3000;

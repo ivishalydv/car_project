@@ -1,0 +1,22 @@
+<% include ./partials/header %>
+
+
+    <form class="ui form" action="/cars" method="POST">
+    <div class="ui container">
+        <label for="name">Name</label>
+        <input type="text" placeholder="Name" name="car[name]">
+    </div>
+    <div class="ui container">
+        <label for="image">image</label>
+        <input type="text" placeholder="Image" name="car[image]">
+    </div>
+    <div class="ui container">
+        <label for="about">about</label>
+        <textarea name="car[about]"></textarea>
+    </div>
+        <div class="ui container">
+            <input type="submit" action="submit" class="ui button blue">button
+        </div>
+    </form>
+
+<% include ./partials/footer %>
