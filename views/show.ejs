@@ -7,6 +7,11 @@
         <img src="<%=cars.image%>">
         <p><%=cars.about%></p>
         <p><%=cars.created%>
+        <br>
+        <a href="/cars/<%=cars._id%>/edit" class="ui secondary button">Edit</a>
+        <form action="/cars/<%=cars._id%>/delete?_method=DELETE" method="POST">
+            <input type="submit" placeholder="Delete" value="Delete">
+        </form>
 </div>
 
 <% include ./partials/footer %>

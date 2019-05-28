@@ -2,9 +2,11 @@ var express=require("express");
 var app=express();
 var mongoose=require("mongoose");
 var bodyParser=require("body-parser");
+var methodOverride=require("method-override");
 
 mongoose.connect("mongodb://localhost/car_project");
 app.set("view engine","ejs");
+app.use(methodOverride("_method"));
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -69,8 +71,32 @@ app.get("/cars/:id/edit",(req,res)=>{
         }else{
             res.render("edit",{car:foundCar});
         }
-    })
-})
+    });
+});
+
+//Update Route
+
+app.put("/cars/:id",(req,res)=>{
+    Car.findByIdAndUpdate(req.params.id,req.body.car,(err,UpdateBlog)=>{
+        if(err){
+            res.redirect("/cars");
+        }else{
+            res.redirect("/cars/"+req.params.id);
+        }
+    });
+});
+
+//Destroy Route
+app.delete("/cars/:id/delete",(req,res)=>{
+    Car.findByIdAndRemove(req.params.id,(err,deleteCar)=>{
+        if(err){
+            console.log(err);
+            res.redirect("/cars/"+req.params.id);
+        }else{
+            res.redirect("/cars");
+        }
+    });
+});
 
 //Defining default route
 
