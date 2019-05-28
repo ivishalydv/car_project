@@ -4,15 +4,15 @@
         <form class="ui form" action="/cars" method="POST">
         <div class="ui container">
             <label for="name" class="ui pointing below label">Name</label>
-            <input type="text" placeholder="Name" name="car[name]">
+            <input type="text" placeholder="Name" name="car[name]" value="<%=car.name%>">
         </div>
         <div class="ui container">
             <label for="image" class="ui pointing below label">image</label>
-            <input type="text" placeholder="Image" name="car[image]">
+            <input type="text" placeholder="Image" name="car[image]" value="<%=car.image%>">
         </div>
         <div class="ui container">
             <label for="about" class="ui pointing below label">about</label>
-            <textarea name="car[about]"></textarea>
+            <textarea name="car[about]"><%=car.about%></textarea>
         </div>
             <div class="ui container">
                 <input type="submit" action="submit" class="ui button blue">

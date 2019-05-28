@@ -2,11 +2,13 @@
 <div class="ui container very padded text mine">
     <h1>Car Blog Page</h1>
 </div>
-<div class="ui container raised very padded text segment">
     <%cars.forEach(function(cars){%>
-        <p><%=cars.name%></p>
+        <div class="ui container raised very padded text segment">
+        <p><strong><%=cars.name%><strong></p>
         <img src="<%=cars.image%>">
         <p><%=cars.about%></p>
+        <a href="/cars/<%=cars._id%>" class="ui inverted button blue">Read More</a>
+        </div>
     <%});%>
 </div>
 

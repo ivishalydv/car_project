@@ -22,6 +22,7 @@ app.get("/",(req,res)=>{
     res.redirect("/cars");
 });
 
+//Find route
 app.get("/cars",(req,res)=>{
     Car.find({},(err,found)=>{
         if(err){
@@ -47,6 +48,31 @@ app.post("/cars",(req,res)=>{
     });
 });
 
+// Searching car by id
+app.get("/cars/:id",(req,res)=>{
+    Car.findById(req.params.id,(err,foundCar)=>{
+        if(err){
+            console.log(err);
+            res.redirect("/cars");
+        }else{
+            res.render("show",{cars:foundCar})
+        };
+    });
+});
+
+//Edit Route
+app.get("/cars/:id/edit",(req,res)=>{
+    Car.findById(req.params.id,(err,foundCar)=>{
+        if(err){
+            console.log(err);
+            res.redirect("/cars");
+        }else{
+            res.render("edit",{car:foundCar});
+        }
+    })
+})
+
+//Defining default route
 
 var port=process.env.PORT || 3000;
 
