@@ -11,6 +11,9 @@ var LocalStrategy=require("passport-local");
 var User=require("./models/user")
 
 mongoose.connect("mongodb://localhost/car_project_2");
+var commentRoutes=require("./routes/comments");
+var carRoutes=require("./routes/cars");
+var authRoutes=require("./routes/index");
 
 
 seedDB();
@@ -36,161 +39,9 @@ app.use((req,res,next)=>{
     next();
 });
 
-
-//Basic Route
-app.get("/",(req,res)=>{
-    res.redirect("/cars");
-});
-
-//Find route
-app.get("/cars",(req,res)=>{
-    Car.find({},(err,found)=>{
-        var currentUser=req.user
-        if(err){
-            console.log(err);
-        }else{
-            res.render("index",{cars:found,currentUser:req.user});
-        }
-    });
-});
-
-app.get("/cars/new",(req,res)=>{
-    res.render("new");
-})
-//create route
-app.post("/cars",(req,res)=>{
-    Car.create(req.body.car,(err,newBlog)=>{
-        if(err){
-            res.render("campground/new");
-
-        }else{
-            res.redirect("/cars");
-        }
-    });
-});
-
-// Searching car by id
-app.get("/cars/:id",(req,res)=>{
-    Car.findById(req.params.id).populate("comments").exec((err,foundCar)=>{
-        if(err){
-            console.log(err);
-            res.redirect("/cars");
-        }else{
-            res.render("campground/show",{cars:foundCar})
-        };
-    });
-});
-
-//Edit Route
-app.get("/cars/:id/edit",(req,res)=>{
-    Car.findById(req.params.id,(err,foundCar)=>{
-        if(err){
-            console.log(err);
-            res.redirect("/cars");
-        }else{
-            res.render("campground/edit",{car:foundCar});
-        }
-    });
-});
-
-//Update Route
-
-app.put("/cars/:id",(req,res)=>{
-    Car.findByIdAndUpdate(req.params.id,req.body.car,(err,UpdateBlog)=>{
-        if(err){
-            res.redirect("/cars");
-        }else{
-            res.redirect("/cars/"+req.params.id);
-        }
-    });
-});
-
-//Destroy Route
-app.delete("/cars/:id/delete",(req,res)=>{
-    Car.findByIdAndRemove(req.params.id,(err,deleteCar)=>{
-        if(err){
-            console.log(err);
-            res.redirect("/cars/"+req.params.id);
-        }else{
-            res.redirect("/cars");
-        }
-    });
-});
-
-//New comment route
-app.get("/cars/:id/comments/new",isLoggedIn,(req,res)=>{
-    Car.findById(req.params.id,(err,car)=>{
-        if(err){
-            console.log(err);
-        }else{
-            res.render("comments/new",{car:car});
-        }
-    })
-});
-
-//Commment Post route
-app.post("/cars/:id/comments",isLoggedIn,(req,res)=>{
-    Car.findById(req.params.id,(err,foundCar)=>{
-        if(err){
-            console.log(err);
-            res.redirect("/cars");
-        }else{
-            Comment.create(req.body.comment,(err,comment)=>{
-                if(err){
-                    console.log(err);
-                }else{
-                    foundCar.comments.push(comment);
-                    foundCar.save();
-                    res.redirect("/cars/"+foundCar._id);
-                }
-            })
-        }
-    })
-})
-
-//AUTH ROUTES
-
-app.get("/register",(req,res)=>{
-    res.render("register");
-});
-
-
-//Handle sign up logic
-
-app.post("/register",(req,res)=>{
-    var newUser=new User({username:req.body.username});
-    User.register(newUser,req.body.password,(err,user)=>{
-        if(err){
-            console.log(err);
-            return res.render("register");
-        }
-        passport.authenticate("local")(req,res,()=>{
-            res.redirect("/cars");
-        });
-    });
-});
-//Login routes
-app.get("/login",(req,res)=>{
-    res.render("login");
-});
-
-app.post("/login",(passport.authenticate("local",{successRedirect:"/cars",
-                    failureRedirect:"/login"})),(req,res)=>{
-
-});
-
-//Logout route
-app.get("/logout",(req,res)=>{
-    req.logout();
-    res.redirect("/cars");
-});
-
-function isLoggedIn(req,res,next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
+app.use(authRoutes);
+app.use(carRoutes);
+app.use(commentRoutes);
 
 //Defining default route
 

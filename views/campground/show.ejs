@@ -15,7 +15,7 @@
 <div class="ui container raised very padded text segment">
             <p>Comments</p>
             <p><%cars.comments.forEach(function(comment){%>
-            <p><%=comment.author%>-<%=comment.text%></p>
+            <p><%=comment.author.username%>-<%=comment.text%></p>
             <%})%>
         <br>
         
