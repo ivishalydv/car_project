@@ -16,7 +16,13 @@
     <div class="container main">
         <a class="item" href="/">Home</a>
         <a class="item" href="/cars/new">New Blog</a>
-        <a class="item">Sign-in</a>
+        <%if(!currentUser){%>
+            <a class="item" href="/login">Sign-in</a>
+            <a class="item" href="/register">Sign-Up</a>
+        <%}else{%>
+            <a class="item" href="/logout">Logout</a>
+            <li class="item">Signed in as <%=currentUser.username%></li>
+        <%}%> 
     </div>
     </div>
 </nav>

@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+<div class="ui container very padded text mine">
+    <h1><%=cars.name%></h1>
+</div>
+<div class="ui container raised very padded text segment">
+        <p><%=cars.name%></p>
+        <img src="<%=cars.image%>">
+        <p><%=cars.about%></p>
+        <p><%=cars.created%>
+        <a href="/cars/<%=cars._id%>/edit" class="ui primary button">Edit</a>
+        <form action="/cars/<%=cars._id%>/delete?_method=DELETE" method="POST">
+            <input type="submit" placeholder="Delete" value="Delete">
+        </form>
+</div>
+<div class="ui container raised very padded text segment">
+            <p>Comments</p>
+            <p><%cars.comments.forEach(function(comment){%>
+            <p><%=comment.author%>-<%=comment.text%></p>
+            <%})%>
+        <br>
+        
+        <p>
+            <a class="ui primary button blue" href="/cars/<%=cars._id%>/comments/new">Add a Comment</a>
+        </p>
+
+</div>
+<% include ../partials/footer %>
